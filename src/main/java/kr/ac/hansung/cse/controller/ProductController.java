@@ -48,7 +48,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/products/{id}")
-	public ResponseEntity<Product> getProductById(@PathVariable("id") long id) {
+	public ResponseEntity<Product> getProductById(@PathVariable("id") int id) {
 		//있을 수도있고 없을 수도있어서 Optional!
 		Optional<Product> productData = repository.findById(id);
 
@@ -73,7 +73,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/products/{id}")
-	public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
+	public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") int id) {
 		try {
 			repository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -100,7 +100,7 @@ public class ProductController {
 
 	//조회하는거 고객이 정보를 넣어주면 그거를 수정함!
 	@PutMapping("/products/{id}")
-	public ResponseEntity<Product> updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
 		Optional<Product> productData = repository.findById(id);
 
 		if (productData.isPresent()) {
