@@ -48,7 +48,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/products/{id}")
-	public ResponseEntity<Product> getCustomerById(@PathVariable("id") long id) {
+	public ResponseEntity<Product> getProductById(@PathVariable("id") long id) {
 		//있을 수도있고 없을 수도있어서 Optional!
 		Optional<Product> productData = repository.findById(id);
 
@@ -60,7 +60,7 @@ public class ProductController {
 	}
 
 	@PostMapping(value = "/products")
-	public ResponseEntity<Product> postCustomer(@RequestBody Product product) {
+	public ResponseEntity<Product> postProduct(@RequestBody Product product) {
 		//사용자의 정보를 받아오면 정보를 받아서 repository에 세이브!
 		try {
 			Product _product = repository.save(new Product(product.getId(), product.getName(), product.getCategory(), 
@@ -73,7 +73,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/products/{id}")
-	public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable("id") long id) {
+	public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
 		try {
 			repository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -100,18 +100,18 @@ public class ProductController {
 
 	//조회하는거 고객이 정보를 넣어주면 그거를 수정함!
 	@PutMapping("/products/{id}")
-	public ResponseEntity<Product> updateCustomer(@PathVariable("id") long id, @RequestBody Product customer) {
-		Optional<Product> customerData = repository.findById(id);
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
+		Optional<Product> productData = repository.findById(id);
 
-		if (customerData.isPresent()) {
-			Product _customer = customerData.get();
-			_customer.setName(customer.getName());
-			_customer.setCategory(customer.getCategory());
-			_customer.setPrice(customer.getPrice());
-			_customer.setManufacturer(customer.getManufacturer());
-			_customer.setUnitInStock(customer.getUnitInStock());
-			_customer.setDescription(customer.getDescription());
-			return new ResponseEntity<>(repository.save(_customer), HttpStatus.OK);
+		if (productData.isPresent()) {
+			Product _product = productData.get();
+			_product.setName(product.getName());
+			_product.setCategory(product.getCategory());
+			_product.setPrice(product.getPrice());
+			_product.setManufacturer(product.getManufacturer());
+			_product.setUnitInStock(product.getUnitInStock());
+			_product.setDescription(product.getDescription());
+			return new ResponseEntity<>(repository.save(_product), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
