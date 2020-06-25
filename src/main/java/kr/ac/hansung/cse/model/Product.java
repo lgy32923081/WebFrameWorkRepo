@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
+@Entity(name="productTable")
 @Getter
 @Setter
 @ToString
@@ -27,7 +27,7 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "procut_id")
+	@Column(name = "product_id")
 	private int id;
 
 	@Column(name = "name")
